@@ -1,0 +1,15 @@
+__pycache__
+*.pyc
+.vscode
+.idea
+venv
+postgres_data
+/postgres_data/
+.DS_Store
+/venv/
+media
+/media/
+.env.dev
+.env.dev.db
+.env.prod
+.env.prod.db
