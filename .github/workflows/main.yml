@@ -51,3 +51,10 @@ jobs:
     steps:
       - name: Linux ls c- urrent directory
         run: ls -la
+        
+        #клонируем весь репозиторий. репозиторий становится доступным
+      - name: Clone my repo
+        uses: actions/checkout@v1
+
+      - name: Linux ls c- urrent directory
+        run: ls -la        
