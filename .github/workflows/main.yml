@@ -2,6 +2,8 @@ name: Deploy-wagtail
 
 on:
   push:
+    branches: 
+    - master
       
 jobs:
   my-testing:
