@@ -29,6 +29,7 @@ jobs:
           echo "commands 2"
           echo "name: ${{ env.APPLICATION_NAME }}"
 
+  
   my-testing-2:
     # запускаем на ubuntu
     runs-on: ubuntu-latest
