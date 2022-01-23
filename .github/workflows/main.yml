@@ -3,7 +3,7 @@ name: Deploy-wagtail
 on:
   push:
     branches: 
-    - master
+    - main
 
 jobs:
   my-testing:
