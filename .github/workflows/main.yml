@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print my testing
-        run: echo "Hello test"
+        run: echo "Hello test 2222"
