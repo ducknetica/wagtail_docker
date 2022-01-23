@@ -39,4 +39,7 @@ jobs:
         # название команды
       - name: Print my testing 2 after needs
         # сама команда
-        run: echo "Hello test 2"        
+        run: echo "Hello test 2"
+      - name: Geting commit number
+        run: | 
+          echo "commit number: ${{ env.SHA_COMMIT }}"
