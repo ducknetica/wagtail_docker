@@ -32,7 +32,7 @@ jobs:
   my-testing-2:
     # запускаем на ubuntu
     runs-on: ubuntu-latest
-    needs: [my-testing] #этот джоб my-testing-2 запустится только после того как отработает my-testing - первый джоб 
+    needs: [my-testing] #этот джоб (my-testing-2) запустится только после того как отработает my-testing - первый джоб 
     
     # команды
     steps:
@@ -43,3 +43,11 @@ jobs:
       - name: Geting commit number
         run: | 
           echo "commit number: ${{ env.SHA_COMMIT }}"
+          
+  linux-comands:
+    runs-on: ubuntu-latest
+    needs: [my-testing-2]
+    
+    steps:
+      - name: Linux ls c- urrent directory
+        run: ls -la
