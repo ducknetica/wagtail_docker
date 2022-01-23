@@ -8,7 +8,24 @@ on:
 
 jobs:
   my-testing:
+  
+    # запускаем на ubuntu
     runs-on: ubuntu-latest
+    
+    # команды
     steps:
+        # название команды
       - name: Print my testing
-        run: echo "Hello test 2222"
+        # сама команда
+        run: echo "Hello test 1"
+        
+  my-testing-2:
+    # запускаем на ubuntu
+    runs-on: ubuntu-latest
+    
+    # команды
+    steps:
+        # название команды
+      - name: Print my testing 2
+        # сама команда
+        run: echo "Hello test 2"        
