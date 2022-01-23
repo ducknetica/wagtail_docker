@@ -1,5 +1,10 @@
 name: Deploy-wagtail
 
+# глобальные переменные будут видны везде - в любых моих джобах
+env: 
+  APPLICATION_NAME   : "myWagtailApp"
+  SHA_COMMIT         : "deploy version - ${{github.sha}}" 
+
 on:
   push:
     branches: 
@@ -17,7 +22,13 @@ jobs:
       - name: Print my testing
         # сама команда
         run: echo "Hello test 1"
-        
+      - name: Versions commit
+      # с помощью | запускаю несколько команд
+        run: | 
+          echo "commands 1"
+          echo "commands 2"
+          echo "name: ${{ env.APPLICATION_NAME }}"
+
   my-testing-2:
     # запускаем на ubuntu
     runs-on: ubuntu-latest
