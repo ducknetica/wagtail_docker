@@ -1,0 +1,13 @@
+name: Deploy-wagtail
+
+on:
+  push:
+    branches: 
+      - master
+      
+jobs:
+  my-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print my testing
+        run: echo "Hello test"
