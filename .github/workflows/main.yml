@@ -2,9 +2,9 @@ name: Deploy-wagtail
 
 # глобальные переменные будут видны везде - в любых моих джобах
 env: 
-  APPLICATION_NAME   : "myWagtailApp"
-  SHA_COMMIT         : "deploy version - ${{github.sha}}" 
-
+  APPLICATION_NAME    : "myWagtailApp"
+  SHA_COMMIT          : "deploy version - ${{github.sha}}" 
+  DEPLOY_PACKAGE_NAME : "wagtail_app_${{ github.sha }}"
 on:
   push:
     branches: 
@@ -50,12 +50,10 @@ jobs:
     needs: [my-testing-2]
     
     steps:
-      - name: Linux ls c- urrent directory
-        run: ls -la
+      - name: Git clone
+        uses:  actions/checkout@v1
         
-        #клонируем весь репозиторий. репозиторий становится доступным
-      - name: Clone my repo
-        uses: actions/checkout@v1
-
-      - name: Linux ls c- urrent directory
-        run: ls -la        
+      - name: Зипуем репозиторий для Deploy
+        run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+        
+           
