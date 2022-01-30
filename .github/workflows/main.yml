@@ -43,7 +43,7 @@ jobs:
         run: echo "Hello test 2"
       - name: Geting commit number
         run: | 
-          echo "commit number: ${{ env.SHA_COMMIT }}"
+          echo "commit  number: ${{ env.SHA_COMMIT }}"
           
   linux-comands:
     runs-on: ubuntu-latest
