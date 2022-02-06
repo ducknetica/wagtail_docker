@@ -28,7 +28,18 @@ class BlogPageTag(TaggedItemBase):
         on_delete=models.CASCADE
         )
 
+class BlogTagIndexPage(Page):
 
+    def get_context(self, request):
+
+        # Filter by tag
+        tags = request.GET.getlist('tag')
+        blogpages = BlogPage.objects.filter(tags__name=tags)
+
+        # Update template context
+        context = super().get_context(request)
+        context['blogpages'] = blogpages
+        return context
 
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
