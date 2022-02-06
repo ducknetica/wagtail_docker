@@ -2,12 +2,14 @@ from cProfile import label
 from curses import panel
 from dataclasses import Field
 from re import search
+from unicodedata import name
 from django.db import models
 
-
-from modelcluster.fields import ParentalKey
+from wagtail.snippets.models import register_snippet
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
+from django import forms
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
@@ -19,6 +21,25 @@ from wagtail.search import index
 from modelcluster.fields import ParentalKey
 
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+@register_snippet
+class BlogCategory(models.Model):
+    name = models.CharField(max_length=255)
+    icon = models.ForeignKey(
+        'wagtailimages.Image', null=True, blank=True,
+        on_delete=models.CASCADE, related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        ImageChooserPanel('icon'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'blog categories'
 
 
 class BlogPageTag(TaggedItemBase):
@@ -60,6 +81,9 @@ class BlogPage(Page):
     intro = models.CharField(max_length=200)
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+    categories = ParentalManyToManyField('BlogCategory', blank=True)
+    # parent_page_types = []
+
 
     def main_image(self):
         gallery_item = self.gallery_images.first()
@@ -79,11 +103,14 @@ class BlogPage(Page):
         MultiFieldPanel([
             FieldPanel('date'),
             FieldPanel('tags'),
+            FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading='Инфа по блогу'),
         FieldPanel('intro'),
         FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery_images"),
     ]
+    
+    parent_page_types = ['blog.BlogIndexPage']
 
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')

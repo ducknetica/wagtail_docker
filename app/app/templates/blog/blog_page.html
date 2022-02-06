@@ -7,10 +7,27 @@
 {% block content %}
 
 <a href="{{page.get_parent.url}}">К списку</a>
+
 <h1>{{page.title}}</h1>
+
 <p class="meta">{{page.date}}</p>
 
 <div class="intro">{{page.intro}}</div>
+
+{% with categories=page.categories.all %}
+    {% if categories %}
+        <h3>Posted in:</h3>
+        <ul>
+            {% for category in categories %}
+                <li style="display: inline">
+                    {% image category.icon fill-32x32 style="vertical-align: middle" %}
+                    {{ category.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
 
 {{page.body|richtext}}
 
@@ -30,4 +47,5 @@
         {% endfor %}
     </div>
 {% endif %}
+
 {% endblock %}
