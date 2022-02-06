@@ -33,8 +33,8 @@ class BlogTagIndexPage(Page):
     def get_context(self, request):
 
         # Filter by tag
-        tags = request.GET.getlist('tag')
-        blogpages = BlogPage.objects.filter(tags__name=tags)
+        tag = request.GET.get('tag')
+        blogpages = BlogPage.objects.filter(tags__name=tag)
 
         # Update template context
         context = super().get_context(request)
@@ -67,7 +67,6 @@ class BlogPage(Page):
             return gallery_item.image
         else:
             return None
-
 
     #indexing
     search_fields = Page.search_fields + [
