@@ -4,16 +4,31 @@ from dataclasses import Field
 from re import search
 from django.db import models
 
+
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 
 from wagtail.search import index
 
 from modelcluster.fields import ParentalKey
 
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+
+class BlogPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'BlogPage', 
+        related_name='tagged_items',
+        on_delete=models.CASCADE
+        )
+
+
 
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
@@ -33,6 +48,14 @@ class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=200)
     body = RichTextField(blank=True)
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+
+    def main_image(self):
+        gallery_item = self.gallery_images.first()
+        if gallery_item:
+            return gallery_item.image
+        else:
+            return None
 
 
     #indexing
@@ -43,7 +66,10 @@ class BlogPage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('date'),
+        MultiFieldPanel([
+            FieldPanel('date'),
+            FieldPanel('tags'),
+        ], heading='Инфа по блогу'),
         FieldPanel('intro'),
         FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery_images"),
