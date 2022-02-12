@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-<a href="{% pageurl page %}">Вирнуться к списку блогов</a>
+<a href="{% slugurl 'list' %}">Вирнуться к списку блогов</a>
     {% if request.GET.tag %}
         <h4>Showing pages tagged "{{ request.GET.tag }}"</h4>
     {% endif %}

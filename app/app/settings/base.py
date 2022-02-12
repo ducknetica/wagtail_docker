@@ -55,6 +55,8 @@ INSTALLED_APPS = [
 
 ]
 
+WAGTAIL_ENABLE_UPDATE_CHECK = False
+
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
