@@ -50,7 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'blog',
+
 ]
+
+WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
