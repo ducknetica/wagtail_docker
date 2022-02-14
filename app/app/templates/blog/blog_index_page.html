@@ -5,8 +5,8 @@
 {% block body_class %} template-blogindexpage {% endblock %}
 
 
+{% include "search/search.html" %}
 {% block content %}
-{% include "search_results.html" %}
     <h1>{{page.title}}</h1>
 
     <div class="intro">{{page.intro|richtext}}</div>
