@@ -31,19 +31,24 @@
 
 {{page.body|richtext}}
 
-{% for item in page.gallery_images.all %}
-    <div style="float: left; margin: 10px">
-        {% image item.image fill-320x240 %}
-        <p>{{item.caption}}</p>
+    <div class="row">
+    
+        {% for item in page.gallery_images.all %}
+        <div class="col">
+                {% image item.image fill-400x200 %}
+                <p>{{item.caption}}</p>
+        </div>
+        {% endfor %}
     </div>
-{% endfor %}
 
 
 {% if page.tags.all.count %}
     <div class="tags">
         <h3>Tags</h3>
         {% for tag in page.tags.all %}
+        <div class="row">
             <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+        </div>
         {% endfor %}
     </div>
 {% endif %}

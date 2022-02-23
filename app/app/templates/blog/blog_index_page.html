@@ -13,13 +13,37 @@
 
     {% for post in blogpages %}
         {% with post=post.specific %}
-            <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
             {% with post.main_image as main_image %}
-                {% if main_image %}{% image main_image fill-80x50 %}{% endif %}
+                {% if main_image %}
+                {% image main_image fill-80x50%}
+                {% endif %}
             {% endwith %}
-            {{ post.specific.intro }}
-            {{ post.specific.body|richtext}}
+
         {% endwith %}
+            <div class="bs-component">
+              <div class="card mb-3">
+                <h3 class="card-header">{{post.title}}</h3>
+                <div class="card-body">
+                  <h5 class="card-title">{{ post.specific.intro }}</h5>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                  <rect width="100%" height="100%" fill="#868e96"></rect>
+                  <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+                </svg>
+                <div class="card-body">
+                  <p class="card-text">{{ post.specific.body|richtext}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Cras justo odio</li>
+                </ul>
+                <div class="card-body">
+                  <a href="#" class="card-link">тэг1</a>
+                  <a href="#" class="card-link">тэг2</a>
+                </div>
+                <div class="card-footer text-muted">
+                  2 days ago
+                </div>
+              </div>
     {% endfor %}
 
 {% endblock content %}
